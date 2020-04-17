@@ -522,8 +522,7 @@ def writeToFile():
         rows += 1
 
     wb.save(filename + ".xls")
-    process = psutil.Process(os.getpid())
-    print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
 
 
 def readFromFile():
@@ -532,7 +531,6 @@ def readFromFile():
 
 
 def main():
-    import psutil
     global ascending
     chosen = int(input("Choose option:\n"
                        "1:To enter an array manually\n"
@@ -558,58 +556,50 @@ def main():
                   '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares,
                   "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "merge":
             merge(arr, ascending)
             print("Sorted with merge sort:" if ascending else "Reversed merge sort:", arr, "\nDone in",
                   '{:.10f}'.format(time).rstrip('0'), "seconds, with", compares,
                   "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "quick":
             quick(arr, 0, arrLen, ascending)
             print("Sorted with quick sort:" if ascending else "Reversed quick sort:", arr, "\nDone in",
                   '{:.10f}'.format(time).rstrip('0'), "seconds, with", compares,
                   "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "dual-pivot":
             qsdp(arr, 0, arrLen, ascending)
             print("Sorted with dual pivot quick sort:" if ascending else "Reversed dual pivot quick sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with", compares, "compares and",
                   transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "mergequick":
             mqs(arr, 0, arrLen, ascending)
             print("Sorted with merge and quick sort:" if ascending else "Reversed merge and quick sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "radix":
             radixSort(arr, ascending)
             print("Sorted with radix sort:" if ascending else "Reversed radix sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "selection":
             selectionSort(arr, ascending)
             print("Sorted with selection sort:" if ascending else "Reversed selection sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "randselection":
             for i in range(len(arr) - 1):
                 rSS(arr, i, ascending)
             print("Sorted with randomized selection sort:" if ascending else "Reversed randomized selection sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "binarysearch":
             element = int(input("Enter element you want to find: "))
             result = binarySearch(arr, 0, arrLen, element)
@@ -623,8 +613,7 @@ def main():
             print("Sorted with quick selection sort:" if ascending else "Reversed quick selection sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         else:
             print("To proper use of program add arguments --type "
                   "insertion|quick|merge|mergequick|radix|selection|randselection|binarysearch|quickselect "
@@ -643,58 +632,50 @@ def main():
             print("Sorted with insertion sort:" if ascending else "Reversed insertion sort:", arr, "\nDone in",
                   '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "merge":
             merge(arr, ascending)
             print("Sorted with merge sort:" if ascending else "Reversed merge sort:", arr, "\nDone in",
                   '{:.10f}'.format(time).rstrip('0'), "seconds, with", compares,
                   "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "quick":
             quick(arr, 0, arrLen, ascending)
             print("Sorted with quick sort:" if ascending else "Reversed quick sort:", arr, "\nDone in",
                   '{:.10f}'.format(time).rstrip('0'), "seconds, with", compares,
                   "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "dual-pivot":
             qsdp(arr, 0, arrLen, ascending)
             print("Sorted with dual pivot quick sort:" if ascending else "Reversed dual pivot quick sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with", compares,
                   "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "mergequick":
             mqs(arr, 0, arrLen, ascending)
             print("Sorted with merge and quick sort:" if ascending else "Reversed merge and quick sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with", compares, "compares and",
                   transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "radix":
             radixSort(arr, ascending)
             print("Sorted with radix sort:" if ascending else "Reversed radix sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "selection":
             selectionSort(arr, ascending)
             print("Sorted with selection sort:" if ascending else "Reversed selection sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "randselection":
             for i in range(len(arr)-1):
                 rSS(arr, i)
             print("Sorted with randomized selection sort:" if ascending else "Reversed randomized selection sort:",
                   arr if ascending else arr.reverse(), "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
+
         elif filename == "binarysearch":
             element = int(input("Enter element you want to find: "))
             result = binarySearch(arr, 0, len(arr) - 1, element)
@@ -708,8 +689,6 @@ def main():
             print("Sorted with quick selection sort:" if ascending else "Reversed quick selection sort:", arr,
                   "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
                   compares, "compares and", transpositions, "transpositions")
-            process = psutil.Process(os.getpid())
-            print("Sort used", process.memory_info().rss / 10 ** 6, "MB")
         else:
             print("To proper use of program add arguments --type "
                   "insertion|quick|merge|mergequick|radix|selection|randselection|binarysearch|quickselect "
