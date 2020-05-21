@@ -147,7 +147,8 @@ if option is 1:
     while True:
         route = []
         todo = int(input("\n\nEnter what you want to do:\n1: Find the element in tree\n2: Find min element in tree\n"
-                         "3: Find max element in tree\n4: Tree height\n5: Delete tree in post order\n6: Exit"))
+                         "3: Find max element in tree\n4: Tree height\n5: Delete tree in post order\n"
+                         "6: Delete number from the tree\n7: Exit"))
         if todo is 1:
             value = int(input("Enter element which you want to find out: "))
             tree.search(rt, value)
@@ -170,8 +171,15 @@ if option is 1:
             deleteTree(rt)
             rt = None
             print("Tree deleted in post order within {} seconds".format(datetime.datetime.now() - start),
-                  end="\nYou can try to check that tree is removed or exit(6)")
+                  end="\nYou can try to check that tree is removed or exit(7)")
         elif todo is 6:
+            value = int(input("Enter element to delete from tree"))
+            deleteNode(rt, value)
+            print("\nIn order traversal: ", end="")
+            tree.inOrder(rt)
+            print("\nPost order traversal: ", end="")
+            tree.postOrder(rt)
+        elif todo is 7:
             print("\nProgram worked within ", datetime.datetime.now() - start,
                   " seconds.\nUsed function createTree ", countTreeCreate,
                   " times.\nUsed function insert ", countInsert,
@@ -271,7 +279,8 @@ if option is 3:
     while True:
         route = []
         todo = int(input("\n\nEnter what you want to do:\n1: Find the element in tree\n2: Find min element in tree\n"
-                         "3: Find max element in tree\n4: Tree height\n5: Delete tree in post order\n6: Exit"))
+                         "3: Find max element in tree\n4: Tree height\n5: Delete tree in post order\n"
+                         "6: Delete number from the tree\n7: Exit"))
         if todo is 1:
             value = int(input("Enter element which you want to find out: "))
             tree.search(rt, value)
@@ -294,8 +303,15 @@ if option is 3:
             deleteTree(rt)
             rt = None
             print("Tree deleted in post order within {} seconds".format(datetime.datetime.now() - start),
-                  end="\nYou can try to check that tree is removed or exit(6)")
+                  end="\nYou can try to check that tree is removed or exit(7)")
         elif todo is 6:
+            value = int(input("Enter element to delete from tree"))
+            deleteNode(rt, value)
+            print("\nIn order traversal: ", end="")
+            tree.inOrder(rt)
+            print("\nPost order traversal: ", end="")
+            tree.postOrder(rt)
+        elif todo is 7:
             print("\nProgram worked within ", datetime.datetime.now() - start,
                   " seconds.\nUsed function createTree ", countTreeCreate,
                   " times.\nUsed function insert ", countInsert,
