@@ -455,7 +455,7 @@ def writeToFile():
                 arLen.append(length)
         elif filename == "randselection":
             for j in range(int(sys.argv[5])):
-                for k in range(len(arrays)-1):
+                for k in range(len(arrays) - 1):
                     rSS(arrays, k)
                 timeSpent.append('{:.10f}'.format(time).rstrip('0'))
                 trans.append(transpositions)
@@ -522,7 +522,6 @@ def writeToFile():
         rows += 1
 
     wb.save(filename + ".xls")
-
 
 
 def readFromFile():
@@ -608,6 +607,7 @@ def main():
                 print("Element is present at index % d" % result)
             else:
                 print("Element is not present in array")
+
         elif filename == "qucikselect":
             qSS(arr, 0, arrLen, ascending)
             print("Sorted with quick selection sort:" if ascending else "Reversed quick selection sort:", arr,
@@ -670,7 +670,7 @@ def main():
                   compares, "compares and", transpositions, "transpositions")
 
         elif filename == "randselection":
-            for i in range(len(arr)-1):
+            for i in range(len(arr) - 1):
                 rSS(arr, i)
             print("Sorted with randomized selection sort:" if ascending else "Reversed randomized selection sort:",
                   arr if ascending else arr.reverse(), "\nDone in", '{:.10f}'.format(time).rstrip('0'), "seconds, with",
@@ -678,12 +678,13 @@ def main():
 
         elif filename == "binarysearch":
             element = int(input("Enter element you want to find: "))
-            result = binarySearch(arr, 0, len(arr) - 1, element)
+            result = binarySearch(arr, 0, arrLen, element)
 
             if result != -1:
                 print("Element is present at index % d" % result)
             else:
                 print("Element is not present in array")
+
         elif filename == "qucikselect":
             qSS(arr, 0, arrLen, ascending)
             print("Sorted with quick selection sort:" if ascending else "Reversed quick selection sort:", arr,

@@ -239,19 +239,10 @@ class RedBlackTree:
         self.__maxElement(self.root)
 
     def successor(self, node):
-        if node.right is not self.data:
+        if node.right is not None:
             return self.__minElement(node.right)
         parent = node.parent
-        while parent is not self.data and node is parent.right:
-            node = parent
-            parent = parent.parent
-        return parent
-
-    def predecessor(self, node):
-        if node.left is not self.data:
-            return self.__maxElement(node.left)
-        parent = node.parent
-        while parent is not self.data and node is parent.left:
+        while parent is not None and node is parent.right:
             node = parent
             parent = parent.parent
         return parent
@@ -378,7 +369,7 @@ if option is 1:
         route = []
         todo = int(input("\n\nEnter what you want to do:\n1: Find the element in tree\n2: Find min element in tree\n"
                          "3: Find max element in tree\n4: Tree height\n5: Delete tree in post order\n"
-                         "6: Delete number from the tree\n7: Exit"))
+                         "6: Delete number from the tree\n7: Find successor\n8: Exit"))
         if todo is 1:
             value = int(input("Enter element which you want to find out: "))
             tree.search(value)
@@ -410,6 +401,9 @@ if option is 1:
             print("\nPost order traversal: ", end="")
             tree.postOrder()
         elif todo is 7:
+            succ = int(input("Enter element which successor you want to find"))
+            print(tree.successor(Node(succ)))
+        elif todo is 8:
             print("\nProgram worked within ", datetime.datetime.now() - start,
                   " seconds.\nUsed function createTree ", countTreeCreate,
                   " times.\nUsed function insert ", countInsert,
@@ -441,7 +435,7 @@ if option is 2:
         route = []
         todo = int(input("\n\nEnter what you want to do:\n1: Find the element in tree\n2: Find min element in tree\n"
                          "3: Find max element in tree\n4: Tree height\n5: Delete tree in post order\n"
-                         "6: Delete number from the tree\n7: Exit"))
+                         "6: Delete number from the tree\n7: Find successor\n8: Exit"))
         if todo is 1:
             value = int(input("Enter element which you want to find out: "))
             tree.search(value)
@@ -473,6 +467,9 @@ if option is 2:
             print("\nPost order traversal: ", end="")
             tree.postOrder()
         elif todo is 7:
+            succ = int(input("Enter element which successor you want to find"))
+            print(tree.successor(Node(succ)))
+        elif todo is 8:
             print("\nProgram worked within ", datetime.datetime.now() - start,
                   " seconds.\nUsed function createTree ", countTreeCreate,
                   " times.\nUsed function insert ", countInsert,
@@ -505,7 +502,7 @@ if option is 3:
         route = []
         todo = int(input("\n\nEnter what you want to do:\n1: Find the element in tree\n2: Find min element in tree\n"
                          "3: Find max element in tree\n4: Tree height\n5: Delete tree in post order\n"
-                         "6: Delete number from the tree\n7: Exit"))
+                         "6: Delete number from the tree\n7: Find successor\n8: Exit"))
         if todo is 1:
             value = int(input("Enter element which you want to find out: "))
             tree.search(value)
@@ -537,6 +534,9 @@ if option is 3:
             print("\nPost order traversal: ", end="")
             tree.postOrder()
         elif todo is 7:
+            succ = int(input("Enter element which successor you want to find"))
+            print(tree.successor(Node(succ)))
+        elif todo is 8:
             print("\nProgram worked within ", datetime.datetime.now() - start,
                   " seconds.\nUsed function createTree ", countTreeCreate,
                   " times.\nUsed function insert ", countInsert,
