@@ -37,7 +37,7 @@ class treeBST:
         if root is None:
             print("Key doesn't exist")
             return root
-        if root.data == key:
+        if root.data is key:
             route.append(key)
             print("Route is: ", route)
             return root
