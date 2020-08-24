@@ -17,108 +17,107 @@ import queue
 end method"""
 
 
-def createMaze():
-	maze = [["#", "#", "#", "#", "#", "O", "#"],
-	        ["#", " ", " ", " ", "#", " ", "#"],
-	        ["#", " ", "#", " ", "#", " ", "#"],
-	        ["#", " ", "#", " ", " ", " ", "#"],
-	        ["#", " ", "#", "#", "#", "#", "#"],
-	        ["#", " ", " ", " ", " ", " ", "#"],
-	        ["#", "#", "#", "#", "#", "X", "#"]]
-	return maze
+class Maze:
+	def __init__(self):
+		self.maze = []
+		self.startPosition = []
+		self.endPosition = []
+		self.bfs()
 
+	def createMaze(self):
+		self.maze = [["#", "#", "#", "#", "#", "O", "#"],
+		             ["#", " ", " ", " ", "#", " ", "#"],
+		             ["#", " ", "#", " ", "#", " ", "#"],
+		             ["#", " ", "#", " ", " ", " ", "#"],
+		             ["#", " ", "#", "#", "#", " ", "#"],
+		             ["#", " ", " ", " ", "#", " ", "#"],
+		             ["#", "#", "#", "#", "#", "X", "#"]]
 
-def setStartEndPositions(maze):
-	startPosition, endPosition = [], []
-	rowNumber, columnNumber = -1, -1
-	for row in maze:
-		columnNumber = -1
-		rowNumber += 1
-		for column in row:
-			columnNumber += 1
-			if column == "O":
-				startPosition = [rowNumber, columnNumber]
-			if column == "X":
-				endPosition = [rowNumber, columnNumber]
-	return startPosition, endPosition
+	def setStartEndPositions(self):
+		rowNumber, columnNumber = -1, -1
+		for row in self.maze:
+			columnNumber = -1
+			rowNumber += 1
+			for column in row:
+				columnNumber += 1
+				if column == "O":
+					self.startPosition = [rowNumber, columnNumber]
+				if column == "X":
+					self.endPosition = [rowNumber, columnNumber]
 
+	def printMaze(self, moves):
+		self.setStartEndPositions()
+		currentPosition = self.startPosition
 
-def printMaze(maze, moves):
-	startPosition, _ = setStartEndPositions(maze)
-	currentPosition = startPosition
+		for move in moves:
+			if move is "L":
+				currentPosition[1] -= 1
+			elif move is "R":
+				currentPosition[1] += 1
+			elif move is "U":
+				currentPosition[0] -= 1
+			elif move is "D":
+				currentPosition[0] += 1
 
-	for move in moves:
-		if move is "L":
-			currentPosition[1] -= 1
-		elif move is "R":
-			currentPosition[1] += 1
-		elif move is "U":
-			currentPosition[0] -= 1
-		elif move is "D":
-			currentPosition[0] += 1
+			if self.maze[currentPosition[0]][currentPosition[1]] is not "O":
+				if self.maze[currentPosition[0]][currentPosition[1]] is not "X":
+					self.maze[currentPosition[0]][currentPosition[1]] = "+"
 
-		if maze[currentPosition[0]][currentPosition[1]] is not "O":
-			if maze[currentPosition[0]][currentPosition[1]] is not "X":
-				maze[currentPosition[0]][currentPosition[1]] = "+"
+		for row in self.maze:
+			print(row)
 
-	for row in maze:
-		print(row)
+	def moveIsValid(self, moves):
+		self.setStartEndPositions()
+		currentPosition = self.startPosition
+		for move in moves:
+			if move is "L":
+				currentPosition[1] -= 1
+			elif move is "R":
+				currentPosition[1] += 1
+			elif move is "U":
+				currentPosition[0] -= 1
+			elif move is "D":
+				currentPosition[0] += 1
 
+			if not (0 <= currentPosition[1] < len(self.maze[0]) and 0 <= currentPosition[0] < len(self.maze)):
+				return False
+			elif self.maze[currentPosition[0]][currentPosition[1]] is "#":
+				return False
 
-def moveIsValid(maze, moves):
-	startPosition, _ = setStartEndPositions(maze)
-	currentPosition = startPosition
-	for move in moves:
-		if move is "L":
-			currentPosition[1] -= 1
-		elif move is "R":
-			currentPosition[1] += 1
-		elif move is "U":
-			currentPosition[0] -= 1
-		elif move is "D":
-			currentPosition[0] += 1
-
-		if not (0 <= currentPosition[1] < len(maze[0]) and 0 <= currentPosition[0] < len(maze)):
-			return False
-		elif maze[currentPosition[0]][currentPosition[1]] is "#":
-			return False
-
-	return True
-
-
-def findEnd(maze, moves):
-	startPosition, endPosition = setStartEndPositions(maze)
-	currentPosition = startPosition
-
-	for move in moves:
-		if move is "L":
-			currentPosition[1] -= 1
-		elif move is "R":
-			currentPosition[1] += 1
-		elif move is "U":
-			currentPosition[0] -= 1
-		elif move is "D":
-			currentPosition[0] += 1
-
-	if currentPosition == endPosition:
-		print("Found: ", moves)
-		printMaze(maze, moves)
 		return True
 
-	return False
+	def findEnd(self, moves):
+		self.setStartEndPositions()
+		currentPosition = self.startPosition
+
+		for move in moves:
+			if move is "L":
+				currentPosition[1] -= 1
+			elif move is "R":
+				currentPosition[1] += 1
+			elif move is "U":
+				currentPosition[0] -= 1
+			elif move is "D":
+				currentPosition[0] += 1
+
+		if currentPosition == self.endPosition:
+			print("Found: ", moves)
+			self.printMaze(moves)
+			return True
+
+		return False
+
+	def bfs(self):
+		self.createMaze()
+		path = queue.Queue()
+		path.put("")
+		add = ""
+		while not self.findEnd(add):
+			add = path.get()
+			for direction in ["L", "R", "U", "D"]:
+				tried = add + direction
+				if self.moveIsValid(tried):
+					path.put(tried)
 
 
-mz = createMaze()
-start, end = setStartEndPositions(mz)
-path = queue.Queue()
-path.put("")
-add = ""
-while not findEnd(mz, add):
-	add = path.get()
-	for direction in ["L", "R", "U", "D"]:
-		tried = add + direction
-		# print("MM:", tried, "A:", add, "MP:", path)
-		# print(maze.maze[maze.moves[0], [maze.moves[1]]])
-		if moveIsValid(mz, tried):
-			path.put(tried)
-		# print("Valid:", direction, "MM:", path)
+mz = Maze()
