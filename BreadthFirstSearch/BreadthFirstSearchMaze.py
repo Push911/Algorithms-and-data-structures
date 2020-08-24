@@ -1,3 +1,5 @@
+import queue
+
 """bfs(start, looking_for)
 	create arrays (node_queue, visited_nodes, and traveled_path)
 	add the start to the arrays
@@ -14,20 +16,19 @@
 	end while
 end method"""
 
-maze = []
-
 
 def createMaze():
-	maze.append(["#", "#", "#", "#", "#", "O", "#"])
-	maze.append(["#", " ", " ", " ", "#", " ", "#"])
-	maze.append(["#", " ", "#", " ", "#", " ", "#"])
-	maze.append(["#", " ", "#", " ", " ", " ", "#"])
-	maze.append(["#", " ", "#", "#", "#", " ", "#"])
-	maze.append(["#", " ", " ", " ", "#", " ", "#"])
-	maze.append(["#", "#", "#", "#", "#", "X", "#"])
+	maze = [["#", "#", "#", "#", "#", "O", "#"],
+	        ["#", " ", " ", " ", "#", " ", "#"],
+	        ["#", " ", "#", " ", "#", " ", "#"],
+	        ["#", " ", "#", " ", " ", " ", "#"],
+	        ["#", " ", "#", "#", "#", "#", "#"],
+	        ["#", " ", " ", " ", " ", " ", "#"],
+	        ["#", "#", "#", "#", "#", "X", "#"]]
+	return maze
 
 
-def setStartEndPositions():
+def setStartEndPositions(maze):
 	startPosition, endPosition = [], []
 	rowNumber, columnNumber = -1, -1
 	for row in maze:
@@ -42,8 +43,8 @@ def setStartEndPositions():
 	return startPosition, endPosition
 
 
-def printMaze(moves):
-	startPosition, _ = setStartEndPositions()
+def printMaze(maze, moves):
+	startPosition, _ = setStartEndPositions(maze)
 	currentPosition = startPosition
 
 	for move in moves:
@@ -56,16 +57,16 @@ def printMaze(moves):
 		elif move is "D":
 			currentPosition[0] += 1
 
-	if maze[currentPosition[0]][currentPosition[1]] is not "O":
-		if maze[currentPosition[0]][currentPosition[1]] is not "X":
-			maze[currentPosition[0]][currentPosition[1]] = "+"
+		if maze[currentPosition[0]][currentPosition[1]] is not "O":
+			if maze[currentPosition[0]][currentPosition[1]] is not "X":
+				maze[currentPosition[0]][currentPosition[1]] = "+"
 
 	for row in maze:
 		print(row)
 
 
-def moveIsValid(moves):
-	startPosition, _ = setStartEndPositions()
+def moveIsValid(maze, moves):
+	startPosition, _ = setStartEndPositions(maze)
 	currentPosition = startPosition
 	for move in moves:
 		if move is "L":
@@ -77,17 +78,16 @@ def moveIsValid(moves):
 		elif move is "D":
 			currentPosition[0] += 1
 
-	if not (0 <= currentPosition[1] < len(maze[0]) and 0 <= currentPosition[0] < len(maze)):
-		return False
-	elif maze[currentPosition[0]][currentPosition[1]] is "#":
-		print(path, moves, currentPosition, "maze")
-		return False
+		if not (0 <= currentPosition[1] < len(maze[0]) and 0 <= currentPosition[0] < len(maze)):
+			return False
+		elif maze[currentPosition[0]][currentPosition[1]] is "#":
+			return False
 
 	return True
 
 
-def findEnd(moves):
-	startPosition, endPosition = setStartEndPositions()
+def findEnd(maze, moves):
+	startPosition, endPosition = setStartEndPositions(maze)
 	currentPosition = startPosition
 
 	for move in moves:
@@ -100,27 +100,25 @@ def findEnd(moves):
 		elif move is "D":
 			currentPosition[0] += 1
 
-	print(currentPosition, endPosition)
 	if currentPosition == endPosition:
 		print("Found: ", moves)
-		printMaze(moves)
+		printMaze(maze, moves)
 		return True
 
 	return False
 
 
-createMaze()
-start, end = setStartEndPositions()
-print(start, end)
-path = ""
+mz = createMaze()
+start, end = setStartEndPositions(mz)
+path = queue.Queue()
+path.put("")
 add = ""
-while not findEnd(add):
-	add = path
+while not findEnd(mz, add):
+	add = path.get()
 	for direction in ["L", "R", "U", "D"]:
 		tried = add + direction
-		print("MM:", tried, "A:", add, "MP:", path)
+		# print("MM:", tried, "A:", add, "MP:", path)
 		# print(maze.maze[maze.moves[0], [maze.moves[1]]])
-		if moveIsValid(tried):
-			path = tried
-			print("Valid:", direction, "MM:", path)
-			print(printMaze(path))
+		if moveIsValid(mz, tried):
+			path.put(tried)
+		# print("Valid:", direction, "MM:", path)
